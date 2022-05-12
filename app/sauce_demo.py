@@ -40,36 +40,136 @@ def test_verify_elements(driver):
 def test_verify_username_and_password_required_for_login(driver):
     driver.find_element(By.CSS_SELECTOR, login_elements.get('login_button')) \
         .click()
-    driver.find_element(By.CLASS_NAME, login_elements.get('error_msg')) \
-        .text == login_verbiage.get('error_msg').get('username')
     try:
-        username_field = driver.find_element(By.CSS_SELECTOR, login_elements.get('user_field'))
+        assert driver.find_element(By.CLASS_NAME, login_elements.get('error_msg')) \
+            .text == login_verbiage.get('error_msg').get('username')
+    except AssertionError:
+        print('error message is not correct')
+        driver.close()
+        assert False
+    try:
+        username_field = driver.find_element(
+            By.CSS_SELECTOR, login_elements.get('user_field'))
         assert 'error' in username_field.get_attribute('class')
     except AssertionError:
         print('could not find classname `error` for username field')
         driver.close()
         assert False
     try:
-        password_field = driver.find_element(By.CSS_SELECTOR, login_elements.get('user_field'))
+        password_field = driver.find_element(
+            By.CSS_SELECTOR, login_elements.get('user_field'))
         assert 'error' in password_field.get_attribute('class')
     except AssertionError:
         print('could not find classname `error` for password field')
         driver.close()
         assert False
     try:
-        user_cross = driver.execute_script("return arguments[0].nextElementSibling", username_field)
+        user_cross = driver.execute_script(
+            "return arguments[0].nextElementSibling", username_field)
         assert 'times-circle' in user_cross.get_attribute('data-icon')
     except AssertionError:
         print('could not find error X for username field')
         driver.close()
         assert False
     try:
-        pass_cross = driver.execute_script("return arguments[0].nextElementSibling", password_field)
+        pass_cross = driver.execute_script(
+            "return arguments[0].nextElementSibling", password_field)
         assert 'times-circle' in pass_cross.get_attribute('data-icon')
     except AssertionError:
         print('could not find error X for password field')
         driver.close()
         assert False
+    driver.close()
 
 
+def test_verify_password_required_for_login(driver):
+    driver.find_element(By.CSS_SELECTOR, login_elements.get('user_field')) \
+        .send_keys(login_verbiage.get('usernames').get('standard'))
+    driver.find_element(By.CSS_SELECTOR, login_elements.get('login_button')) \
+        .click()
+    try:
+        assert driver.find_element(By.CLASS_NAME, login_elements.get('error_msg')) \
+            .text == login_verbiage.get('error_msg').get('password')
+    except AssertionError:
+        print('error message is not correct')
+        driver.close()
+        assert False
+    try:
+        username_field = driver.find_element(
+            By.CSS_SELECTOR, login_elements.get('user_field'))
+        assert 'error' in username_field.get_attribute('class')
+    except AssertionError:
+        print('could not find classname `error` for username field')
+        driver.close()
+        assert False
+    try:
+        password_field = driver.find_element(
+            By.CSS_SELECTOR, login_elements.get('user_field'))
+        assert 'error' in password_field.get_attribute('class')
+    except AssertionError:
+        print('could not find classname `error` for password field')
+        driver.close()
+        assert False
+    try:
+        user_cross = driver.execute_script(
+            "return arguments[0].nextElementSibling", username_field)
+        assert 'times-circle' in user_cross.get_attribute('data-icon')
+    except AssertionError:
+        print('could not find error X for username field')
+        driver.close()
+        assert False
+    try:
+        pass_cross = driver.execute_script(
+            "return arguments[0].nextElementSibling", password_field)
+        assert 'times-circle' in pass_cross.get_attribute('data-icon')
+    except AssertionError:
+        print('could not find error X for password field')
+        driver.close()
+        assert False
+    driver.close()
+
+def test_verify_username_required_for_login(driver):
+    driver.find_element(By.CSS_SELECTOR, login_elements.get('pass_field')) \
+        .send_keys(login_verbiage.get('password'))
+    driver.find_element(By.CSS_SELECTOR, login_elements.get('login_button')) \
+        .click()
+    try:
+        assert driver.find_element(By.CLASS_NAME, login_elements.get('error_msg')) \
+            .text == login_verbiage.get('error_msg').get('username')
+    except AssertionError:
+        print('error message is not correct')
+        driver.close()
+        assert False
+    try:
+        username_field = driver.find_element(
+            By.CSS_SELECTOR, login_elements.get('user_field'))
+        assert 'error' in username_field.get_attribute('class')
+    except AssertionError:
+        print('could not find classname `error` for username field')
+        driver.close()
+        assert False
+    try:
+        password_field = driver.find_element(
+            By.CSS_SELECTOR, login_elements.get('user_field'))
+        assert 'error' in password_field.get_attribute('class')
+    except AssertionError:
+        print('could not find classname `error` for password field')
+        driver.close()
+        assert False
+    try:
+        user_cross = driver.execute_script(
+            "return arguments[0].nextElementSibling", username_field)
+        assert 'times-circle' in user_cross.get_attribute('data-icon')
+    except AssertionError:
+        print('could not find error X for username field')
+        driver.close()
+        assert False
+    try:
+        pass_cross = driver.execute_script(
+            "return arguments[0].nextElementSibling", password_field)
+        assert 'times-circle' in pass_cross.get_attribute('data-icon')
+    except AssertionError:
+        print('could not find error X for password field')
+        driver.close()
+        assert False
     driver.close()
