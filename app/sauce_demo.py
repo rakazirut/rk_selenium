@@ -1,11 +1,9 @@
 import pytest
-import sys
 from support.base_config import *
 from support.login import *
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, NoSuchAttributeException
 from selenium.webdriver.common.by import By
-from time import sleep
 
 
 @pytest.fixture(autouse=True)
