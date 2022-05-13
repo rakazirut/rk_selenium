@@ -1,4 +1,6 @@
-version: 2.0
+version: 2.1
+orbs:
+  browser-tools: circleci/browser-tools@1.1
 
 workflows:
   version: 2
@@ -21,13 +23,10 @@ workflows:
 jobs:
   selenium/run:
     docker:
-      - image: cimg/python:3.8.13-browsers
+      - image: cimg/python:3.8-browsers
     steps:
+      - browser-tools/install-browser-tools
       - checkout
-      - run: cd /usr/local/bin
-      - run: curl https://chromedriver.storage.googleapis.com/101.0.4951.41/chromedriver_linux64.zip | gzip -dc > chromedriver
-      - run: chmod +x chromedriver
-      - run: cd
       - run: poetry install
       - run:
           name: e2e test
