@@ -24,10 +24,10 @@ jobs:
       - image: cimg/python:3.8.13-browsers
     steps:
       - checkout
+      - run: cd /usr/local/bin
       - run: curl https://chromedriver.storage.googleapis.com/101.0.4951.41/chromedriver_linux64.zip | gzip -dc > chromedriver
       - run: chmod +x chromedriver
-      - run: export PATH=$PATH:/home/circleci/project
-      - run: echo $PATH
+      - run: cd
       - run: poetry install
       - run:
           name: e2e test
