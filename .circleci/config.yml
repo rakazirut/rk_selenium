@@ -7,16 +7,16 @@ workflows:
 
   commit-workflow:
     jobs:
-      selenium/run:
-        docker:
-          - image: cimg/python:3.8-browsers
-        steps:
-          - browser-tools/install-browser-tools
-          - checkout
-          - run: poetry install
-          - run:
-              name: e2e test
-              command: poetry run pytest -v
+      - selenium/run:
+          docker:
+            - image: cimg/python:3.8-browsers
+          steps:
+            - browser-tools/install-browser-tools
+            - checkout
+            - run: poetry install
+            - run:
+                name: e2e test
+                command: poetry run pytest -v
   
   schedule_workflow:
     triggers:
@@ -27,13 +27,13 @@ workflows:
               only:
                 - main
     jobs:
-      selenium/run:
-        docker:
-          - image: cimg/python:3.8-browsers
-        steps:
-          - browser-tools/install-browser-tools
-          - checkout
-          - run: poetry install
-          - run:
-              name: e2e test
-              command: poetry run pytest -v
+      - selenium/run:
+          docker:
+            - image: cimg/python:3.8-browsers
+          steps:
+            - browser-tools/install-browser-tools
+            - checkout
+            - run: poetry install
+            - run:
+                name: e2e test
+                command: poetry run pytest -v
