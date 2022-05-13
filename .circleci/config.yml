@@ -17,7 +17,7 @@ workflows:
                 - main
     jobs:
       - selenium/run
-      S
+
 dependancies:
   pre:
     - curl https://chromedriver.storage.googleapis.com/101.0.4951.41/chromedriver_linux64.zip | gzip -dc > chromedriver
