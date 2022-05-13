@@ -1,13 +1,22 @@
 version: 2.1
 orbs:
-  browser-tools: circleci/browser-tools@1.1
+  browser-tools: circleci/browser-tools@1.3.0
 
 workflows:
   version: 2
 
   commit-workflow:
     jobs:
-      - selenium/run
+      selenium/run:
+        docker:
+          - image: cimg/python:3.8-browsers
+        steps:
+          - browser-tools/install-browser-tools
+          - checkout
+          - run: poetry install
+          - run:
+              name: e2e test
+              command: poetry run pytest -v
   
   schedule_workflow:
     triggers:
@@ -18,16 +27,13 @@ workflows:
               only:
                 - main
     jobs:
-      - selenium/run
-
-jobs:
-  selenium/run:
-    docker:
-      - image: cimg/python:3.8-browsers
-    steps:
-      - browser-tools/install-browser-tools
-      - checkout
-      - run: poetry install
-      - run:
-          name: e2e test
-          command: poetry run pytest -v
+      selenium/run:
+        docker:
+          - image: cimg/python:3.8-browsers
+        steps:
+          - browser-tools/install-browser-tools
+          - checkout
+          - run: poetry install
+          - run:
+              name: e2e test
+              command: poetry run pytest -v
