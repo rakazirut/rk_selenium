@@ -26,7 +26,7 @@ jobs:
       - checkout
       - run: curl https://chromedriver.storage.googleapis.com/101.0.4951.41/chromedriver_linux64.zip | gzip -dc > chromedriver
       - run: chmod +x chromedriver
-      - run: sudo ln -s 'which chromedriver' /usr/local/bin/chromedriver
+      - run: which chromedriver
       - run: poetry install
       - run:
           name: e2e test
