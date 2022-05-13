@@ -1,4 +1,6 @@
-version: 2.0
+version: 2.1
+orbs:
+  browser-tools: circleci/browser-tools@1.3.0
 
 workflows:
   version: 2
@@ -24,6 +26,7 @@ jobs:
       - image: cimg/python:3.8.13-browsers
     steps:
       - checkout
+      - browser-tools/install-chromedriver
       - run: poetry install
       - run:
           name: e2e test
